@@ -1,4 +1,6 @@
-FROM python:3.6
+ARG PYTHON_VERSION=3.9
+
+FROM python:${PYTHON_VERSION}
 
 # Create app directory
 WORKDIR /app
@@ -9,7 +11,7 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 # Bundle app source
-COPY src /app
+COPY src .
 
-EXPOSE 8080
-CMD [ "python", "server.py" ]
+EXPOSE 3000
+CMD [ "uvicorn", "main:app" , "--port", "3000"]
